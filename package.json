@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-electron": "electron  ./server/index.js",
+    "start-electron": "electron  ./server/app.js",
     "start": "nodemon --config ./config/nodemon.dev.json  --exec 'npm run 'start-electron"
   },
   "author": "yuhaiqing",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^6.0.7"
+    "electron": "^6.0.7",
+    "mini-logger": "^1.1.3"
   }
 }

@@ -1,8 +1,31 @@
-const { app, BrowserWindow } = require('electron')
+const config = require("../config/config");
+const electron = require('electron');
+const Logger = require('mini-logger');
+
+const path = require("path");
+
+
+
+const { app, BrowserWindow,Menu } = electron;
+
+
+var _logger = Logger({
+  dir: config.logDir,
+  timestamp:true,
+  format: 'YYYY-MM-DD-[{category}][.log]'
+});
+var logger = _logger.error;
+if(process.env.NODE_ENV === 'development'){
+  logger = console.log
+}
+
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
+
+let onlineStatusWindow
+
 
 function createWindow () {
   // 创建浏览器窗口。
@@ -13,9 +36,9 @@ function createWindow () {
       nodeIntegration: true
     }
   })
-
+  win.setProgressBar(0.5)
   // 加载index.html文件
-  win.loadFile('index.html')
+  win.loadFile(path.join(config.viewDir,"index.html"))
 
   // 打开开发者工具
   win.webContents.openDevTools()
@@ -32,7 +55,11 @@ function createWindow () {
 // Electron 会在初始化后并准备
 // 创建浏览器窗口时，调用这个函数。
 // 部分 API 在 ready 事件触发后才能使用。
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow();
+  onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false })
+  onlineStatusWindow.loadURL(path.join(config.viewDir,"online-status.html"))
+})
 
 // 当全部窗口关闭时退出。
 app.on('window-all-closed', () => {
