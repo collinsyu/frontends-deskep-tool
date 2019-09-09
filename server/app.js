@@ -8,6 +8,7 @@ const path = require("path");
 
 const { app, BrowserWindow,Menu } = electron;
 
+// NOTE: 2019-09-09 17:33:20 目前本地开发使用日志是记录在本地，一会会创建一个在线获取app运行情况
 
 var _logger = Logger({
   dir: config.logDir,
@@ -38,7 +39,12 @@ function createWindow () {
   })
   win.setProgressBar(0.5)
   // 加载index.html文件
-  win.loadFile(path.join(config.viewDir,"index.html"))
+  if(process.env.NODE_ENV === 'development'){
+    win.loadURL("http://localhost:8080/")
+  }else{
+    win.loadFile(path.join(config.viewDir,"index.html"))
+  }
+  
 
   // 打开开发者工具
   win.webContents.openDevTools()

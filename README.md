@@ -32,7 +32,8 @@
 * [x] 静态文件配置
 * [x] mini-logger
 * [x] electron文件变化，项目自动重启（注意不是热更新）
-* [ ] ui使用react 【[参考1](https://www.jianshu.com/p/91a4214b913b)】【[参考2](https://segmentfault.com/a/1190000017210172)】
+* [ ] ~~ui使用react 【[参考1](https://www.jianshu.com/p/91a4214b913b)】【[参考2](https://segmentfault.com/a/1190000017210172)】~~
+* [x] ui使用umi
 * [ ] 本地数据库【[nedb](https://github.com/louischatriot/nedb)】【[参考](https://www.cnblogs.com/buzhiqianduan/p/7620099.html)】【[参考2](https://www.cnblogs.com/buzhiqianduan/p/7620099.html)】
 * [ ] 打包
 * [ ] 热更新
