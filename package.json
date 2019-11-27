@@ -1,7 +1,7 @@
 {
-  "name": "frontends-deskep-tool",
+  "name": "pomegranate",
   "version": "1.0.0",
-  "description": "",
+  "description": "a collection of frontends-deskep-tool",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

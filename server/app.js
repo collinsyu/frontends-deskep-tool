@@ -1,53 +1,46 @@
 const config = require("../config/config");
 const electron = require('electron');
-const Logger = require('mini-logger');
-
 const path = require("path");
-
-
-
-const { app, BrowserWindow,Menu } = electron;
-
-// NOTE: 2019-09-09 17:33:20 目前本地开发使用日志是记录在本地，一会会创建一个在线获取app运行情况
-
-var _logger = Logger({
-  dir: config.logDir,
-  timestamp:true,
-  format: 'YYYY-MM-DD-[{category}][.log]'
-});
-var logger = _logger.error;
-if(process.env.NODE_ENV === 'development'){
-  logger = console.log
-}
+const Imenu = require("./handler/menu");
+const Ilogger = require("./handler/logger");
+const { app, BrowserWindow ,BrowserView} = electron;
 
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
-
 let onlineStatusWindow
 
 
 function createWindow () {
+  Ilogger(">> 项目启动")
+  // NOTE: 2019-09-24 17:32:31 设置菜单
+  Imenu()
+  
   // 创建浏览器窗口。
-  win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
-  win.setProgressBar(0.5)
+  // win = new BrowserWindow({
+  //   width: 800,
+  //   height: 600,
+  //   webPreferences: {
+  //     nodeIntegration: true
+  //   }
+  // })
+
+win = new BrowserWindow({ backgroundColor: '#fff' })
+
+  // NOTE: 2019-09-22 11:26:33  这个控制icon上面的进度条
+  // win.setProgressBar(0.5)
   // 加载index.html文件
   if(process.env.NODE_ENV === 'development'){
-    win.loadURL("http://localhost:8080/")
+    win.loadURL("http://localhost:8001/")
   }else{
     win.loadFile(path.join(config.viewDir,"index.html"))
   }
   
-
+  
   // 打开开发者工具
   win.webContents.openDevTools()
+
 
   // 当 window 被关闭，这个事件会被触发。
   win.on('closed', () => {

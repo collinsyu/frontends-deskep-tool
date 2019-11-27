@@ -8,7 +8,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: { webpackChunkName: true },
-      title: 'client_umi',
+      title: 'Pomegranate',
       dll: true,
       
       routes: {
